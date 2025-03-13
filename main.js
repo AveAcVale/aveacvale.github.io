@@ -349,4 +349,7 @@ $(document).ready(function() {
 	$('input[type="checkbox"]').change(function() {
 		cities.filter(data => data.id == $(this).attr('id'))[0].disabled = !$(this).is(':checked');
 	});
+	$('span.city').click(function() {
+		$(this).parent().find('input[type="checkbox"]')[0].click();
+	});
 });
