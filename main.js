@@ -80,7 +80,7 @@ class DynamicSelect {
             placeholder: 'Select an option',
             columns: 1,
             name: '',
-            width: '',
+            width: '100%',
             height: '',
             data: [],
 			selectedVal: 0,
@@ -123,6 +123,7 @@ class DynamicSelect {
         `;
         let element = document.createElement('div');
         element.innerHTML = template;
+		element.classList.add("dynamic-box");
         return element;
     }
 
@@ -321,14 +322,16 @@ $(document).ready(function() {
     cities.forEach(city => {
         const $cityItem = $(`
             <li>
-				<span class="rowspan"><input type="checkbox" checked id="${city.id}"></span>
-                <span class="city">${city.title}</span>
-				<span class="rowspan"><select class="custom-select"></select></span>
-                <span class="product">${city.produces.title}</span>
+			    <div class='info_container'><input type="checkbox" checked id="${city.id}">
+                    <div class='info__box'> 
+                        <p class="city">${city.title}</p>
+                        <p class="product">${city.produces.title}</p>
+                    </div>
+                </div>
+				<select class="custom-select"></select>
             </li>
         `);
 		const $select = new DynamicSelect($cityItem.find(`select`)[0], {
-			width: '300px',
 			placeholder: 'Выберите товар',
 			name: 'product-'+city.id,
 			cityId: city.id,
@@ -349,7 +352,7 @@ $(document).ready(function() {
 	$('input[type="checkbox"]').change(function() {
 		cities.filter(data => data.id == $(this).attr('id'))[0].disabled = !$(this).is(':checked');
 	});
-	$('span.city').click(function() {
-		$(this).parent().find('input[type="checkbox"]')[0].click();
+	$('p.city').click(function() {
+		$(this).closest('li').find('input[type="checkbox"]')[0].click();
 	});
 });
