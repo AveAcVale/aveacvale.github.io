@@ -46,22 +46,17 @@ ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+  flex-direction: column;
   gap: 12px;
   padding: 12px;
   border: 2px solid rgb(37, 74, 70);
   border-radius: 0.5rem;
-}
-
-/* @media only screen and (max-width: 1200px) {
-  ul {
-    columns: 1;
+  
+  @media screen and (min-width: 1024px) {
+    max-height: 100vh;
   }
-} */
-
-
-ul > * + * {
-  margin-top: 1rem;
 }
+
 
 ol {
   padding: 16px;
@@ -94,6 +89,7 @@ ul li {
   justify-content: flex-end;
   align-items: center;
   gap: 12px;
+  margin-top: 1rem;
 
   @media screen and (min-width: 768px) {
     width: calc((100% - 12px) / 2);
