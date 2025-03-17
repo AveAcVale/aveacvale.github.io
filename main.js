@@ -1,77 +1,96 @@
 'use strict';
 
-function makeStruct(keys) {
-  if (!keys) return null;
-  const k = keys.split(', ');
-  const count = k.length;
-
-  /** @constructor */
-  function constructor() {
-    for (let i = 0; i < count; i++) this[k[i]] = arguments[i];
-  }
-  return constructor;
+function getLang() {
+	return localStorage.getItem('lang') || 'RU';
 }
 
-const City = new makeStruct("id, title, produces, needs, disabled");
-const Product = new makeStruct("id, title, img");
+class City {
+    constructor(id, nameRU, nameEN, produces = null) {
+		this.id = id;
+        this.nameRU = nameRU;
+		this.nameEN = nameEN;
+        this.produces = produces;
+    }
+	
+	get title() {
+		return this['name' + getLang()];
+	}
+}
 
-const conch = new Product(1, 'Эхо-раковина', 'conch.png')
-const silk = new Product(2, 'Паучий шелк', 'silk.png')
-const sakura = new Product(3, 'Сакура', 'sakura.png')
-const cactus = new Product(4, 'Кактус Сэндтопии', 'cactus.png')
-const tree = new Product(5, 'Зимний побег дерева', 'tree.png')
-const bell = new Product(6, 'Колокольчики', 'bell.png')
-const claw = new Product(7, 'Клешня краба', 'claw.png')
-const bone = new Product(8, 'Кость скелетона', 'bone.png')
-const feather = new Product(9, 'Перо пидженрата', 'feather.png')
-const prisma = new Product(10, 'Лазерная призма', 'prisma.png')
-const amber = new Product(11, 'Янтарь', 'amber.png')
-const fang = new Product(12, 'Клык питона', 'fang.png')
-const kappa = new Product(13, 'Самоцвет каппы', 'kappa.png')
-const scale = new Product(14, 'Чешуя дракона', 'scale.png')
-const fruit = new Product(15, 'Фрукт крокодил', 'fruit.png')
-const tentacle = new Product(16, 'Щупальце чудовища', 'tentacle.png')
-const oni = new Product(17, 'Кубок Они', 'oni.png')
-const flame = new Product(18, 'Адское пламя', 'flame.png')
-const horn = new Product(19, 'Рог ледяного гиганта', 'horn.png')
-const soul = new Product(20, 'Узы души', 'soul.png')
-const hellbat = new Product(21, 'Мембрана крыла', 'hellbat.png')
-const lantern = new Product(22, 'Фонарь духов', 'lantern.png')
-const ore = new Product(23, 'Волшебная руда', 'ore.png')
-const mane = new Product(24, 'Sphinx Mane', 'mane.png')
-const slate = new Product(25, 'Древняя фреска', 'slate.png')
-const weed = new Product(26, 'Перекати-поле', 'weed.png')
+class Product {
+    constructor(id, nameRU, nameEN, img) {
+		this.id = id;
+        this.nameRU = nameRU;
+		this.nameEN = nameEN;
+		this.img = img;
+    }
+	
+	get title() {
+		return this['name' + getLang()];
+	}
+}
 
+const conch = new Product(1, 'Эхо-раковина', 'Echoing Conch', 'conch.png');
+const silk = new Product(2, 'Паучий шелк', 'Spider Silk', 'silk.png');
+const sakura = new Product(3, 'Сакура', 'Sakura', 'sakura.png');
+const cactus = new Product(4, 'Кактус Сэндтопии', 'Sandtopia Cactus', 'cactus.png');
+const tree = new Product(5, 'Зимний побег дерева', 'Winter Tree Shoot', 'tree.png');
+const bell = new Product(6, 'Колокольчики', 'Possessed Wind Chimes', 'bell.png');
+const claw = new Product(7, 'Клешня краба', 'Ship Crab Claw', 'claw.png');
+const bone = new Product(8, 'Кость скелетона', 'Skeleton Bone', 'bone.png');
+const feather = new Product(9, 'Перо пидженрата', 'Pigeonrath Feather', 'feather.png');
+const prisma = new Product(10, 'Лазерная призма', 'Ancient Laser Prism', 'prisma.png');
+const amber = new Product(11, 'Янтарь', 'Ambergris', 'amber.png');
+const fang = new Product(12, 'Клык питона', 'Fang of Python', 'fang.png');
+const kappa = new Product(13, 'Самоцвет каппы', 'Gem of Kappa', 'kappa.png');
+const scale = new Product(14, 'Чешуя дракона', 'Ice Dragon Scale', 'scale.png');
+const fruit = new Product(15, 'Фрукт крокодил', 'Sand Crocodile Fruit', 'fruit.png');
+const tentacle = new Product(16, 'Щупальце чудовища', 'Sea Monster Tentacles', 'tentacle.png');
+const oni = new Product(17, 'Кубок Они', 'Oni Cup', 'oni.png');
+const flame = new Product(18, 'Адское пламя', 'Infernal Flames', 'flame.png');
+const horn = new Product(19, 'Рог ледяного гиганта', 'Ice Giant Horn', 'horn.png');
+const soul = new Product(20, 'Узы души', 'Soul-Sealed Bandage', 'soul.png');
+const hellbat = new Product(21, 'Перепонка крыла хэлбэт', 'Hellbat Wing Membrane', 'hellbat.png');
+const lantern = new Product(22, 'Фонарь духов', 'Lantern of Spirits', 'lantern.png');
+const ore = new Product(23, 'Кусок волшебной руды', 'Magic Ore Chunk', 'ore.png');
+const mane = new Product(24, 'Sphinx Mane', 'Sphinx\'s Mane', 'mane.png');
+const slate = new Product(25, 'Древняя фреска', 'Ancient Slate', 'slate.png');
+const weed = new Product(26, 'Перекати-поле', 'Tumbleweed', 'weed.png');
+
+const berg = new City(1, 'Дракенберг', 'Drakenberg', sakura);
+const dungeon = new City(2, 'Подземелье дракона', 'Dragon Dungeon', tree);
+const mountain = new City(3, 'Гора драконов', 'Dragonflight Mountain');
+const forest = new City(4, 'Злой лес', 'Evil Forest');
+const elven = new City(5, 'Эльфийский лес', 'Elven Forest', conch);
+const oasis = new City(6, 'Город-оазис', 'Oasis City');
+const ruins = new City(7, 'Древние руины', 'Ancient City Ruins');
+const sand = new City(8, 'Великая пустыня', 'Sandtopia', fruit);
+const sanct = new City(9, 'Заповедник', 'Sandcastle Sanctuary');
+const ice = new City(10, 'Континент льда', 'Ice Continent', tree);
+const tundra = new City(11, 'Тундра Эйсвинтер', 'Elswinter Tundra', feather);
+const cave = new City(12, 'Драконья пещера', 'Dragon Cave', scale);
+const snow = new City(13, 'Северный Снегберг', 'Northrealm Snowberg', horn);
+const darkwood = new City(14, 'Темнолесье', 'Darkwood Forest');
+const grave = new City(15, 'Кладбище', 'Graveyard');
+const under = new City(16, 'Подземный город', 'Undercity');
+const volcano = new City(17, 'Подземный вулкан', 'Underground Volcano', flame);
+const island = new City(18, 'Остров сакуры', 'Sakura Island', sakura);
+const isles = new City(19, 'Тысяча островов', 'Myriad Isles', bell);
+const whirl = new City(20, 'Остров вихрей', 'Whirl Island', kappa);
+const oniisle = new City(21, 'Остров Они', 'Oni Island', oni);
+const reef = new City(22, 'Коралловый риф', 'Coral Reef', conch);
+const ship = new City(23, 'Затонувшие корабли', 'Shipwreck Area', claw);
+const storm = new City(24, 'Зона шторма', 'Storm Zone', amber);
+const sea = new City(25, 'Спокойное море', 'Tranquil Sea', tentacle);
+
+const stages = [
+	[mountain, cactus, forest, silk, oasis, cactus, ruins, prisma, sanct, soul, darkwood, silk, grave, bone, under, fang],
+	[mountain, cactus, forest, hellbat, oasis, cactus, ruins, prisma, sanct, soul, darkwood, hellbat, grave, lantern, under, ore],
+	[mountain, weed, forest, hellbat, oasis, weed, ruins, slate, sanct, mane, darkwood, hellbat, grave, lantern, under, ore]
+];
 
 const products = [conch, silk, sakura, cactus, tree, bell, claw, bone, feather, prisma, amber, fang, kappa, scale, fruit, tentacle, oni, flame, horn, soul, hellbat, lantern, ore];
-
-const cities = [
-	new City(1, 'Дракенберг', sakura),
-	new City(2, 'Подземелье дракона', tree),
-    new City(3, 'Гора драконов', cactus),
-    new City(4, 'Злой лес', hellbat),
-    new City(5, 'Эльфийский лес', conch),
-    new City(6, 'Город-оазис', cactus),
-    new City(7, 'Древние руины', prisma),
-    new City(8, 'Великая пустыня', fruit),
-    new City(9, 'Заповедник', soul),
-    new City(10, 'Континент льда', tree),
-    new City(11, 'Тундра Эйсвинтер', feather),
-    new City(12, 'Драконья пещера', scale),
-    new City(13, 'Северный Снегберг', horn),
-    new City(14, 'Темнолесье', hellbat),
-    new City(15, 'Кладбище', lantern),
-    new City(16, 'Подземный город', ore),
-    new City(17, 'Подземный вулкан', flame),
-    new City(18, 'Остров сакуры', sakura),
-    new City(19, 'Тысяча островов', bell),
-    new City(20, 'Остров вихрей', kappa),
-    new City(21, 'Остров Они', oni),
-    new City(22, 'Коралловый риф', conch),
-    new City(23, 'Затонувшие корабли', claw),
-    new City(24, 'Зона шторма', amber),
-    new City(25, 'Спокойное море', tentacle)
-];
+const cities = [berg, dungeon, mountain, forest, elven, oasis, ruins, sand, sanct, ice, tundra, cave, snow, darkwood, grave, under, volcano, island, isles, whirl, oniisle, reef, ship, storm, sea];
 
 class DynamicSelect {
 
@@ -134,8 +153,6 @@ class DynamicSelect {
                 option.classList.add('dynamic-select-selected');
                 this.element.querySelector('.dynamic-select-header').innerHTML = option.innerHTML;
                 this.element.querySelector('input').value = option.getAttribute('data-value');
-                //this.data.forEach(data => data.selected = false);
-                //this.data.filter(data => data.id == option.getAttribute('data-value'))[0].selected = true;
 				this.selectedValue = option.getAttribute('data-value');
                 this.element.querySelector('.dynamic-select-header').classList.remove('dynamic-select-header-active');
                 this.options.onChange(
@@ -236,62 +253,41 @@ function nextStep(city, cities) {
     return cities.filter(obj => obj.needs === city.produces);
 }
 
-// Функция для удаления города
 function removeCity(city, cities) {
     return cities.filter(obj => obj !== city);
 }
 
-// Функция для нахождения маршрутов
 function findRoutes(currentCity, startCity, cities, currentRoute, allRoutes) {
     currentRoute.push(currentCity);
     
     if (currentRoute.length > 1 && currentCity === startCity) {
-        allRoutes.push([...currentRoute]); // Копируем текущий маршрут
+        allRoutes.push([...currentRoute]);
     }
 
     const possibleCities = cities.filter(obj => obj.needs === currentCity.produces);
     for (const nextCity of possibleCities) {
         findRoutes(nextCity, startCity, removeCity(nextCity, cities), currentRoute, allRoutes);
     }
-    currentRoute.pop(); // Убираем текущий город из маршрута
+    currentRoute.pop();
 }
 
-// Функция для удаления дубликатов списков
+
 function removeDuplicateLists(listOfLists) {
-    const uniqueSets = new Set(); // Множество для хранения уникальных наборов
-    const uniqueLists = []; // Список для хранения уникальных списков
+    const uniqueSets = new Set();
+    const uniqueLists = [];
     
     for (const list of listOfLists) {
-        const currentSet = new Set(list.toSorted((a,b) => a.id - b.id)); // Преобразуем список в множество
+        const currentSet = new Set(list.toSorted((a,b) => a.id - b.id));
 
-        // Проверяем, уже существует ли этот набор
         if (!uniqueSets.has(JSON.stringify([...currentSet]))) {
-            uniqueSets.add(JSON.stringify([...currentSet])); // Добавляем набор в множество 
-            uniqueLists.push(list); // Сохраняем оригинальный список
+            uniqueSets.add(JSON.stringify([...currentSet]));
+            uniqueLists.push(list);
         }
     }
     
     return uniqueLists;
 }
 
-function removeDuplicateLists2(listOfLists) {
-    const uniqueSets = new Set(); // Множество для хранения уникальных наборов элементов
-    const uniqueLists = [];        // Массив для хранения уникальных списков
-
-    for (const lst of listOfLists) {
-        // Преобразуем список в строку для игнорирования порядка
-		const currentSet = new Set(lst);
-        //const currentSet = JSON.stringify(testSet); // Сортируем и превращаем в строку
-
-        // Проверяем, был ли такой набор элементов уже добавлен
-        if (!uniqueSets.has(currentSet)) {
-            uniqueSets.add(currentSet); // Добавляем этот набор в множество
-            uniqueLists.push(lst);       // Сохраняем оригинальный список
-        }
-    }
-
-    return uniqueLists;
-}
 
 function getRoutes() {
 	const routes = [];
@@ -316,13 +312,43 @@ function getRoutes() {
 	}
 }
 
-$(document).ready(function() {
-    const $cityList = $('#city-list');
+function changeStage(stageId) {
+	localStorage.setItem('stage', stageId);
+	const stageArr = stages[stageId-1];
+	for (var i = 0; i < stageArr.length; i += 2) {
+		stageArr[i].produces = stageArr[i+1];
+	}
+}
 
+$(document).ready(function() {
+	const stageId = localStorage.getItem('stage') || '1';
+
+	if (getLang() == 'RU') {
+		$('#language-toggle').prop('checked', false);
+		$('#eventname').text('ФТГ');
+		$(".reset_btn").text('сброс');
+		$(".build_btn").text('маршруты');
+		document.title = 'Фестиваль торговой гильдии';
+	} else {
+		$('#language-toggle').prop('checked', true);
+		$('#eventname').text('GTF');
+		$(".reset_btn").text('reset');
+		$(".build_btn").text('routes');
+		document.title = 'Guild Trade Festival';
+	}
+	
+	$('input:radio[name=stage][value='+stageId+']').prop('checked', true);
+	$('input:radio[name=stage]').click(function() {
+		location.reload();
+		changeStage($(this).val());
+	});
+	changeStage(stageId);
+
+    const $cityList = $('#city-list');
     cities.forEach(city => {
         const $cityItem = $(`
             <li>
-			    <div class='info_container'><input type="checkbox" checked id="${city.id}">
+			    <div class='info_container'><input type="checkbox" checked id="${city.id}" name="citytoggle">
                     <div class='info__box'> 
                         <p class="city">${city.title}</p>
                         <p class="product">${city.produces.title}</p>
@@ -349,7 +375,11 @@ $(document).ready(function() {
 	
 	$(".reset_btn").click(() => {localStorage.clear(); location.reload();})
 	$(".build_btn").click(() => {getRoutes();})
-	$('input[type="checkbox"]').change(function() {
+	$('#language-toggle').change(function() {
+		localStorage.setItem('lang', $(this).is(':checked') ? 'EN' : 'RU');
+		location.reload();
+	});
+	$('input[type="checkbox"][name=citytoggle]').change(function() {
 		cities.filter(data => data.id == $(this).attr('id'))[0].disabled = !$(this).is(':checked');
 	});
 	$('p.city').click(function() {

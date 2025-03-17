@@ -14,10 +14,32 @@
   </head>
   <body>
     <div class="header">
-      <h1>Список городов</h1>
-      <div class="btn__box">
-        <button class="button reset_btn" role="button">сброс</button
-        ><button class="button build_btn" role="button">маршруты</button>
+	  <div>
+	    <h1 id="eventname">ФТГ</h1>
+	    <div class="switch">
+	      <input id="language-toggle" class="check-toggle check-toggle-round-flat" type="checkbox">
+	      <label for="language-toggle"></label>
+	      <span class="on">RU</span>
+	      <span class="off">EN</span>
+	    </div>
+	  </div>
+	  <div class="chooser">
+        <label for="">
+          <input type="radio" value="1" name="stage"/>
+          <span>I</span>
+        </label>
+        <label for="">
+          <input type="radio" value="2" name="stage"/>
+          <span>II</span>
+        </label>
+        <label for="">
+          <input type="radio" value="3" name="stage"/>
+          <span>III</span>
+        </label>
+	  </div>
+	  <div class="btn__box">
+        <button class="button reset_btn" role="button">сброс</button>
+        <button class="button build_btn" role="button">маршруты</button>
       </div>
     </div>
 
