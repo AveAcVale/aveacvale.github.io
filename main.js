@@ -53,8 +53,8 @@ const soul = new Product(20, 'Узы души', 'Soul-Sealed Bandage', 'soul.png
 const hellbat = new Product(21, 'Перепонка крыла хэлбэт', 'Hellbat Wing Membrane', 'hellbat.png');
 const lantern = new Product(22, 'Фонарь духов', 'Lantern of Spirits', 'lantern.png');
 const ore = new Product(23, 'Кусок волшебной руды', 'Magic Ore Chunk', 'ore.png');
-const mane = new Product(24, 'Sphinx Mane', 'Sphinx\'s Mane', 'mane.png');
-const slate = new Product(25, 'Древняя фреска', 'Ancient Slate', 'slate.png');
+const mane = new Product(24, 'Грива Сфинкса', 'Sphinx\'s Mane', 'mane.png');
+const slate = new Product(25, 'Древняя табличка', 'Ancient Slate', 'slate.png');
 const weed = new Product(26, 'Перекати-поле', 'Tumbleweed', 'weed.png');
 
 const berg = new City(1, 'Дракенберг', 'Drakenberg', sakura);
@@ -89,7 +89,7 @@ const stages = [
 	[mountain, weed, forest, hellbat, oasis, weed, ruins, slate, sanct, mane, darkwood, hellbat, grave, lantern, under, ore]
 ];
 
-const products = [conch, silk, sakura, cactus, tree, bell, claw, bone, feather, prisma, amber, fang, kappa, scale, fruit, tentacle, oni, flame, horn, soul, hellbat, lantern, ore];
+const products = [conch, silk, sakura, cactus, tree, bell, claw, bone, feather, prisma, amber, fang, kappa, scale, fruit, tentacle, oni, flame, horn, soul, hellbat, lantern, ore, mane, slate, weed];
 const cities = [berg, dungeon, mountain, forest, elven, oasis, ruins, sand, sanct, ice, tundra, cave, snow, darkwood, grave, under, volcano, island, isles, whirl, oniisle, reef, ship, storm, sea];
 
 class DynamicSelect {
