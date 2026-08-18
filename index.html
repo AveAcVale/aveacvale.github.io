@@ -1,50 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="Isekai Slow Life: Инструмент для расчета торговых маршрутов на Фестивале торговой гильдии." />
+    <meta name="theme-color" content="#121212" />
+    
+    <meta property="og:title" content="ФТГ Маршруты - Isekai Slow Life" />
+    <meta property="og:description" content="Калькулятор маршрутов для Фестиваля торговой гильдии." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="./img/sakura.png" />
+
     <title>Фестиваль торговой гильдии</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&family=Roboto:wght@400;500;700;900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./css/style.css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="img/sakura.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="./css/style.css?v=6" />
   </head>
   <body>
-    <div class="header">
-	  <div>
-	    <h1 id="eventname">ФТГ</h1>
-	    <div class="switch">
-	      <input id="language-toggle" class="check-toggle check-toggle-round-flat" type="checkbox">
-	      <label for="language-toggle"></label>
-	      <span class="on">RU</span>
-	      <span class="off">EN</span>
-	    </div>
-	  </div>
-	  <div class="chooser">
-        <label for="">
+    <div class="header-container">
+      <div class="header-top">
+        <h1 id="eventname" class="gradient-text">Маршруты ФТГ</h1>
+        <div class="header-actions">
+          <button class="icon-button share-btn" id="share-btn" title="Поделиться маршрутом" aria-label="Share">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="stage-chooser">
+        <label class="stage-radio">
           <input type="radio" value="1" name="stage"/>
-          <span>I</span>
+          <span class="stage-label">Этап I</span>
         </label>
-        <label for="">
+        <label class="stage-radio">
           <input type="radio" value="2" name="stage"/>
-          <span>II</span>
+          <span class="stage-label">Этап II</span>
         </label>
-        <label for="">
+        <label class="stage-radio">
           <input type="radio" value="3" name="stage"/>
-          <span>III</span>
+          <span class="stage-label">Этап III</span>
         </label>
-	  </div>
-	  <div class="btn__box">
-        <button class="button reset_btn" role="button">сброс</button>
-        <button class="button build_btn" role="button">маршруты</button>
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn btn-secondary reset_btn" id="reset-btn">Сброс</button>
+        <button class="btn btn-primary build_btn" id="build-btn">Маршруты</button>
       </div>
     </div>
 
-    <ul id="city-list"></ul>
-    <ol id="routes-list"></ol>
-    <script src="main.js"></script>
+    <div class="main-content">
+      <div class="cities-section">
+        <ul id="city-list" class="city-grid"></ul>
+      </div>
+
+      <div class="routes-section" id="routes-section" style="display: none;">
+        <h2 class="gradient-text" id="routes-title">Найденные маршруты</h2>
+        <div id="routes-list" class="routes-grid"></div>
+      </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast">Ссылка скопирована!</div>
+
+    <script>
+      window.onerror = function(message, source, lineno, colno, error) {
+        const errDiv = document.createElement('div');
+        errDiv.style.color = 'white';
+        errDiv.style.backgroundColor = 'red';
+        errDiv.style.padding = '20px';
+        errDiv.style.position = 'fixed';
+        errDiv.style.top = '0';
+        errDiv.style.left = '0';
+        errDiv.style.zIndex = '9999';
+        errDiv.innerHTML = `<h3>JS Error:</h3><p>${message}</p><p>Line: ${lineno}:${colno}</p><p>${error?.stack}</p>`;
+        document.body.appendChild(errDiv);
+      };
+    </script>
+    <script src="main.js?v=10"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js');
+        });
+      }
+    </script>
   </body>
 </html>
