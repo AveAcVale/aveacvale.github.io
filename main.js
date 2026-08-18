@@ -233,8 +233,13 @@ function renderRoutes() {
         
         card.innerHTML = `
             <div class="route-meta">
-                <span class="route-profit">Доход: ${totalProfit}%</span>
-                <span class="route-length">${route.length - 1} остановок</span>
+                <div style="display:flex; align-items:center; gap: 1rem;">
+                    <span class="route-profit">Доход: ${totalProfit}%</span>
+                    <span class="route-length">${route.length - 1} остановок</span>
+                </div>
+                <button class="icon-button sm copy-route-btn" title="Копировать маршрут">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                </button>
             </div>
             <div class="route-path">
                 ${route.map((city, i) => `
@@ -247,6 +252,27 @@ function renderRoutes() {
                 `).join('')}
             </div>
         `;
+        
+        const copyBtn = card.querySelector('.copy-route-btn');
+        copyBtn.addEventListener('click', () => {
+            let text = `Доход: ${totalProfit}% (${route.length - 1} остановок)\n`;
+            text += route.map((c, i) => {
+                let step = c.title;
+                if (i > 0) step += ` (${c.price}%)`;
+                return step;
+            }).join(' ➜ ');
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.textContent = 'Маршрут скопирован!';
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => toast.textContent = 'Ссылка скопирована!', 300);
+                }, 3000);
+            });
+        });
+        
         routesList.appendChild(card);
     });
     
